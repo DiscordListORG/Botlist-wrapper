@@ -1,7 +1,22 @@
- deploy:
-   image: maven:3.3.9-jdk-8
-   script:
-     - 'mvn deploy -s ci_settings.xml'
-   only:
-     - master
-     - develop
+image: maven:3.3.9-jdk-8
+ 
+stages:
+   - build
+   - deploy
+ 
+build:
+ stage: build
+ script: 
+   - 'mvn clean package'
+ artifacts:
+   paths:
+     - target/*.jar
+   expire_in: 1 week
+
+deploy:
+  stage: deploy
+  script:
+    - 'mvn deploy -s ci_settings.xml'
+  only:
+    - master
+    - develop
