@@ -130,6 +130,18 @@ public class BotlistWrapperBuilder {
     }
 
     /**
+     * Registers multiple botlists
+     * @param botlists The botlists
+     * @return The current builder
+     */
+    public BotlistWrapperBuilder registerBotlists(@NotNull Botlist... botlists) {
+        for (Botlist botlist : botlists) {
+            registerBotlist(botlist);
+        }
+        return this;
+    }
+
+    /**
      * Set's the JSON Object mapper
      * @param mapper the Mapper {@link com.fasterxml.jackson.databind.ObjectMapper}
      * @return The current builder
