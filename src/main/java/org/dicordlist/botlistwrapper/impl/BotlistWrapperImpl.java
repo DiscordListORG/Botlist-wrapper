@@ -58,15 +58,18 @@ public class BotlistWrapperImpl implements BotlistWrapper {
     }
 
 
-    @SuppressWarnings("unchecked")
     @Override
     public void post() {
         botlists.forEach(botlist -> scheduler.execute(() -> {
             ObjectNode jsonObject = mapper.createObjectNode();
             jsonObject.put(botlist.getServerCountField(), provider.getGuildCount());
             Integer[] shards = provider.getGuildCounts();
-            if (shards.length != 0)
-                jsonObject.putArray(botlist.getShardsField()).addAll((Collection<? extends JsonNode>) mapper.valueToTree(shards));
+            if (shards.length != 0) {
+                ArrayNode array = jsonObject.putArray(botlist.getShardsField());
+                for (Integer guildCount : provider.getGuildCounts()) {
+                    array.add(guildCount);
+                }
+            }
             int shardId = provider.getShardId();
             if (shardId != -1)
                 jsonObject.put(botlist.getShardIdField(), shardId);
@@ -83,7 +86,7 @@ public class BotlistWrapperImpl implements BotlistWrapper {
                     .post(body)
                     .addHeader("Authorization", botlist.getAuthorizationType() + authenticationProvider.getBotlistToken(botlist.getClass()))
                     .build();
-            try (Response response = httpClient.newCall(request).execute()){
+            try (Response response = httpClient.newCall(request).execute()) {
                 int code = response.code();
                 if (code != botlist.getSuccessCode())
                     throw new InvalidResponseException(code, "Got invalid error code from botlist", botlist);
