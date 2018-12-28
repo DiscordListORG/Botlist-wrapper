@@ -31,5 +31,6 @@ dependencies {
 
 repositories {
     maven { url 'https://gitlab.discordlist.org/api/v4/projects/26/packages/maven' }
-}```
+}
+```
 
