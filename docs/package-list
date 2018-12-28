@@ -1,0 +1,6 @@
+org.dicordlist.botlistwrapper
+org.dicordlist.botlistwrapper.core.exceptions
+org.dicordlist.botlistwrapper.core.models
+org.dicordlist.botlistwrapper.core.models.impls
+org.dicordlist.botlistwrapper.impl
+org.dicordlist.botlistwrapper.util
