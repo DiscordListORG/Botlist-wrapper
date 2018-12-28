@@ -74,6 +74,9 @@ public class BotlistWrapperImpl implements BotlistWrapper {
             if (shardCount != -1)
                 jsonObject.put(botlist.getShardCountField(), shardCount);
 
+            //Additional values
+            botlist.additionalValues().forEach(jsonObject::put);
+
             RequestBody body = RequestBody.create(botlist.getContentType(), jsonObject.toString());
             Request request = new Request.Builder()
                     .url(botlist.getEndpointUrl(provider.getBotId()))

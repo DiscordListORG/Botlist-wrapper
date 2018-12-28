@@ -2,6 +2,8 @@ package org.dicordlist.botlistwrapper.core.models;
 
 import okhttp3.MediaType;
 
+import java.util.HashMap;
+
 public interface Botlist {
 
     /**
@@ -55,5 +57,9 @@ public interface Botlist {
      * @return The content type of the requests usually <code>application/json</code>
      */
     MediaType getContentType();
+
+    default HashMap<String, String> additionalValues() {
+        return new HashMap<>();
+    };
 
 }
