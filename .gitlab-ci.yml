@@ -20,3 +20,11 @@ deploy:
   only:
     - master
     - develop
+pages:
+  script:
+    - 'mv docs public'
+  artifacts:
+    paths:
+      - 'public'
+    only:
+      - 'master'
