@@ -25,6 +25,7 @@ deploy:
 pages:
   stage: pages
   script:
+    - 'mvn javadoc:javadoc'
     - 'mv docs public'
   artifacts:
     paths:
