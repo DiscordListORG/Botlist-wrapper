@@ -34,3 +34,17 @@ repositories {
 }
 ```
 
+Example:
+```Java
+     HashMap<String, String> tokens = new HashMap<>();
+        tokens.put(DiscordBotsGG.class.getCanonicalName(), "dbggtoken");
+
+        BotlistWrapper wrapper = new BotlistWrapperBuilder(
+                new JDAProvider(jda),
+                botlist -> tokens.get(botlist.getCanonicalName())
+        )
+                .registerBotlist(new DiscordBotsGG())
+                .build();
+                
+```                
+
