@@ -3,6 +3,7 @@ image: maven:3.3.9-jdk-8
 stages:
    - build
    - deploy
+   - pages
  
 build:
  stage: build
@@ -20,11 +21,14 @@ deploy:
   only:
     - master
     - develop
+
 pages:
+  stage: pages
   script:
     - 'mv docs public'
   artifacts:
     paths:
       - 'public'
-    only:
-      - 'master'
+  only:
+    - 'master'
+    
