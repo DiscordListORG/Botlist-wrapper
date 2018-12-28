@@ -1,5 +1,5 @@
 # BotlistWrapper
-An universal Java Discord botlist wrapper made for use in Discordlist projects
+### An universal Java Discord botlist wrapper made for use in Discordlist projects
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb613bca77e0705b0326/maintainability)](https://codeclimate.com/github/DiscordListORG/Botlist-wrapper/maintainability)
 [![Pipeline](https://gitlab.discordlist.org/discordlist-org/botlist-wrapper/badges/master/pipeline.svg)](https://gitlab.discordlist.org/discordlist-org/botlist-wrapper/pipelines)
 
