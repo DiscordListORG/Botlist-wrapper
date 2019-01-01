@@ -39,6 +39,6 @@ public class DiscordBotsORG implements Botlist {
 
     @Override
     public MediaType getContentType() {
-        return null;
+        return MediaType.parse("application/json");
     }
 }
