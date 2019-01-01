@@ -17,7 +17,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - 'mvn deploy -s ci_settings.xml'
+    - 'mvn deploy -P release -s ci_settings.xml'
   only:
     - master
     - develop
