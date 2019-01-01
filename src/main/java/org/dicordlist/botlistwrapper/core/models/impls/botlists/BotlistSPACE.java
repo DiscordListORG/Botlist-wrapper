@@ -4,12 +4,12 @@ import okhttp3.MediaType;
 import org.dicordlist.botlistwrapper.core.models.Botlist;
 
 /**
- * Wrapper class for https://botlist.space/documentation
+ * Wrapper class for https://botlistspace.gitbook.io/api/docs/bots
  */
 public class BotlistSPACE implements Botlist {
     @Override
     public String getEndPointUrl() {
-        return "https://botlist.space/api/bots/:id";
+        return "https://api.botlist.space/v1/bots/%s";
     }
 
     @Override
