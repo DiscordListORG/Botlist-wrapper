@@ -1,12 +1,12 @@
 package org.dicordlist.botlistwrapper.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import okhttp3.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.dicordlist.botlistwrapper.BotlistWrapper;
 import org.dicordlist.botlistwrapper.core.exceptions.InvalidResponseException;
 import org.dicordlist.botlistwrapper.core.models.AuthenticationProvider;
@@ -14,7 +14,6 @@ import org.dicordlist.botlistwrapper.core.models.Botlist;
 import org.dicordlist.botlistwrapper.core.models.StatisticsProvider;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
@@ -62,12 +61,14 @@ public class BotlistWrapperImpl implements BotlistWrapper {
     public void post() {
         botlists.forEach(botlist -> scheduler.execute(() -> {
             ObjectNode jsonObject = mapper.createObjectNode();
-            jsonObject.put(botlist.getServerCountField(), provider.getGuildCount());
+            int guildCount = provider.getGuildCount();
+            if (guildCount != -1)
+                jsonObject.put(botlist.getServerCountField(), provider.getGuildCount());
             Integer[] shards = provider.getGuildCounts();
             if (shards.length != 0) {
                 ArrayNode array = jsonObject.putArray(botlist.getShardsField());
-                for (Integer guildCount : provider.getGuildCounts()) {
-                    array.add(guildCount);
+                for (Integer count : provider.getGuildCounts()) {
+                    array.add(count);
                 }
             }
             int shardId = provider.getShardId();
@@ -75,11 +76,9 @@ public class BotlistWrapperImpl implements BotlistWrapper {
                 jsonObject.put(botlist.getShardIdField(), shardId);
             int shardCount = provider.getShardCount();
             if (shardCount != -1)
-                //jsonObject.put(botlist.getShardCountField(), shardCount);
-
+                jsonObject.put(botlist.getShardCountField(), shardCount);
             //Additional values
             botlist.additionalValues().forEach(jsonObject::put);
-
             RequestBody body = RequestBody.create(botlist.getContentType(), jsonObject.toString());
             Request request = new Request.Builder()
                     .url(botlist.getEndpointUrl(provider.getBotId()))

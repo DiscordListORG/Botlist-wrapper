@@ -33,7 +33,7 @@ public class JDAProvider implements StatisticsProvider {
      * @param shardManager Your shardmanager instance
      */
     public JDAProvider(ShardManager shardManager) {
-        this.guildCountProvider = () -> null;
+        this.guildCountProvider = () -> -1;
         this.shardCountProvider = () -> Math.toIntExact(shardManager.getShardCache().size());
         this.guildCountsProvider = () -> shardManager.getShards().stream().mapToInt(shard -> Math.toIntExact(shard.getGuildCache().size())).boxed().toArray(Integer[]::new);
         this.shardIdProvider = () -> shardManager.getShards().get(0).getShardInfo().getShardId();
