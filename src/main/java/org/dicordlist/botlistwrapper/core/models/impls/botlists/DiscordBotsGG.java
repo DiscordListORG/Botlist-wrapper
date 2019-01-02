@@ -19,17 +19,17 @@ public class DiscordBotsGG implements Botlist {
 
     @Override
     public String getShardsField() {
-        return "notUsed";
+        return "";
     }
 
     @Override
     public String getShardIdField() {
-        return "shardId";
+        return "";
     }
 
     @Override
     public String getShardCountField() {
-        return "shardCount";
+        return "";
     }
 
     @Override
